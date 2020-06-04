@@ -31,13 +31,24 @@ import SwiftUI
 struct FlightBoard: View {
     var title: String
     var flightData: [FlightInformation]
+    @State private var hideCancelled = false
+    var shownFlights: [FlightInformation] {
+      hideCancelled ?
+        flightData.filter { $0.status != .cancelled } :
+        flightData
+    }
+    
     var body: some View {
         VStack {
-            List(flightData) { fl in
+            List(shownFlights) { fl in
                 NavigationLink(destination: FlightBoardInformation(flight: fl)){
                     FlightRow(flight: fl)
                 }
-            }.navigationBarTitle(title)
+            }
+            .navigationBarTitle(title)
+            .navigationBarItems(trailing: Toggle(isOn: $hideCancelled, label: {
+                Text("Hide Cancelled")
+            }))
         }
     }
 }

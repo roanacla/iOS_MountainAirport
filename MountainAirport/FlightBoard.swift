@@ -34,8 +34,14 @@ struct FlightBoard: View {
     var body: some View {
         VStack {
             Text(title).font(.title)
-            ForEach(flightData){ fl in //id is an Int that conforms the Hashable protocol 
-                Text("\(fl.airline) \(fl.number)")
+            ScrollView {
+                ForEach(flightData){ fl in //id is an Int that conforms the Hashable protocol
+                    VStack {
+                        Text("\(fl.airline) \(fl.number)")
+                        Text("\(fl.flightStatus) at \(fl.currentTimeString)")
+                        Text("At gate \(fl.gate)")
+                    }
+                }
             }
         }
     }

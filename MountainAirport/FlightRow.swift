@@ -30,15 +30,25 @@ import SwiftUI
 
 struct FlightRow: View {
     var flight: FlightInformation
+    @State private var isPresented = false
     
     var body: some View {
-        HStack {
-            Text("\(self.flight.airline) \(self.flight.number) ")
-                .frame(width: 120,alignment: .leading)
-            Text(self.flight.otherAirport)
-                .frame(alignment: .trailing)
-            Spacer()
-            Text(self.flight.flightStatus).frame(alignment: .trailing)
+
+        Button(action: {
+            self.isPresented.toggle()
+        }){
+            HStack {
+                Text("\(self.flight.airline) \(self.flight.number) ")
+                    .frame(width: 120,alignment: .leading)
+                Text(self.flight.otherAirport)
+                    .frame(alignment: .trailing)
+                Spacer()
+                Text(self.flight.flightStatus).frame(alignment: .trailing)
+            }.sheet(isPresented: $isPresented, onDismiss: {
+                print("Modal dismissed. State now: \(self.isPresented)")
+            }) {
+                FlightBoardInformation(flight: self.flight)
+            }
         }
     }
 }

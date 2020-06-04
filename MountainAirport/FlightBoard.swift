@@ -41,14 +41,9 @@ struct FlightBoard: View {
     var body: some View {
         VStack {
             List(shownFlights) { fl in
-                NavigationLink(destination: FlightBoardInformation(flight: fl)){
-                    FlightRow(flight: fl)
-                }
+                FlightRow(flight: fl)
             }
             .navigationBarTitle(title)
-            .navigationBarItems(trailing: Toggle(isOn: $hideCancelled, label: {
-                Text("Hide Cancelled")
-            }))
         }
     }
 }

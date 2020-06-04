@@ -1,4 +1,4 @@
-/// Copyright (c) 2019 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,22 +28,25 @@
 
 import SwiftUI
 
-struct FlightBoard: View {
-    var title: String
-    var flightData: [FlightInformation]
+struct FlightBoardInformation: View {
+    var flight: FlightInformation
     var body: some View {
-        VStack {
-            List(flightData) { fl in
-                NavigationLink(destination: FlightBoardInformation(flight: fl)){
-                    FlightRow(flight: fl)
-                }
-            }.navigationBarTitle(title)
-        }
+        VStack(alignment: .leading) {
+            HStack{
+                Text("\(flight.airline) Flight \(flight.number)")
+                    .font(.largeTitle)
+                Spacer()
+            }
+            Text("\(flight.direction == .arrival ? "From: " : "To: ") \(flight.otherAirport)")
+            Text(flight.flightStatus)
+                .foregroundColor(Color(flight.timelineColor))
+            Spacer()
+        }.font(.headline).padding(10)
     }
 }
 
-struct FlightBoard_Previews: PreviewProvider {
+struct FlightBoardInformation_Previews: PreviewProvider {
     static var previews: some View {
-        FlightBoard(title: "test", flightData: FlightInformation.generateFlights())
+        FlightBoardInformation(flight: FlightInformation.generateFlight(0))
     }
 }

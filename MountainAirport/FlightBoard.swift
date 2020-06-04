@@ -30,13 +30,19 @@ import SwiftUI
 
 struct FlightBoard: View {
     var title: String
+    var flightData: [FlightInformation]
     var body: some View {
-        Text(title)
+        VStack {
+            Text(title).font(.title)
+            ForEach(flightData){ fl in //id is an Int that conforms the Hashable protocol 
+                Text("\(fl.airline) \(fl.number)")
+            }
+        }
     }
 }
 
 struct FlightBoard_Previews: PreviewProvider {
     static var previews: some View {
-        FlightBoard(title: "Hi")
+        FlightBoard(title: "test", flightData: FlightInformation.generateFlights())
     }
 }

@@ -208,3 +208,6 @@ class FlightInformation: NSObject {
     return FlightHistory(day, id:id, date: date, direction: direction, status: status, scheduledTime: scheduled, actualTime: newTime)
   }
 }
+
+extension FlightInformation: Identifiable  {
+}

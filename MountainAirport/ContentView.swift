@@ -41,10 +41,10 @@ struct ContentView: View {
           .opacity(0.1)
           .rotationEffect(.degrees(-90))
         VStack(alignment: .leading, spacing: 5) {
-          NavigationLink(destination: FlightBoard(title: "Arraivals")) {
+          NavigationLink(destination: FlightBoard(title: "Arraivals", flightData: self.flightInfo.filter{$0.direction == .arrival })) {
             Text("Arrivals")
           }
-          NavigationLink(destination: FlightBoard(title: "Departures")) {
+          NavigationLink(destination: FlightBoard(title: "Departures", flightData: self.flightInfo.filter {$0.direction == .departure})) {
             Text("Departures")
           }
           Spacer()

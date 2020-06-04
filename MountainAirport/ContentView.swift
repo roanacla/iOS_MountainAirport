@@ -33,14 +33,46 @@ struct ContentView: View {
   
   var body: some View {
     NavigationView {
-      HStack {
-        ZStack {
-          Image(systemName: "airplane").resizable().aspectRatio(contentMode: .fit).frame(width: 250, height: 250, alignment: .center).opacity(0.1).rotationEffect(.degrees(-90))
+      ZStack {
+        Image(systemName: "airplane")
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: 250, height: 250, alignment: .center)
+          .opacity(0.1)
+          .rotationEffect(.degrees(-90))
+        VStack(alignment: .leading, spacing: 5) {
+          NavigationLink(destination: FlightBoard(title: "Arraivals")) {
+            Text("Arrivals")
+          }
+          NavigationLink(destination: FlightBoard(title: "Departures")) {
+            Text("Departures")
+          }
           Spacer()
-        }
-      }
-      .navigationBarTitle(Text("Mountain Airport"))
+        }.font(.title).padding(20)
+        Spacer()
+      }.navigationBarTitle(Text("Mountain Airport"))
     }
+//    TabView {
+//      FlightBoard(title: "Hello")
+//      .tabItem({
+//        Image(systemName: "icloud.and.arrow.down").resizable()
+//        Text("Arribals")
+//      })
+//      FlightBoard(title: "Hello 2")
+//      .tabItem({
+//        Image(systemName: "icloud.and.arrow.up").resizable()
+//        Text("Departures")
+//      })
+//    }
+//    NavigationView {
+//      HStack {
+//        ZStack {
+//          Image(systemName: "airplane").resizable().aspectRatio(contentMode: .fit).frame(width: 250, height: 250, alignment: .center).opacity(0.1).rotationEffect(.degrees(-90))
+//          Spacer()
+//        }
+//      }
+//      .navigationBarTitle(Text("Mountain Airport"))
+//    }
   }
 }
 

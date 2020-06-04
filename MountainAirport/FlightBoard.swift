@@ -29,13 +29,14 @@
 import SwiftUI
 
 struct FlightBoard: View {
+    var title: String
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello World!"/*@END_MENU_TOKEN@*/)
+        Text(title)
     }
 }
 
 struct FlightBoard_Previews: PreviewProvider {
     static var previews: some View {
-        FlightBoard()
+        FlightBoard(title: "Hi")
     }
 }

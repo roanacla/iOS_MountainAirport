@@ -33,7 +33,7 @@ struct FlightTimeHistory: View {
   
   var body: some View {
     VStack {
-      Text("On-Time History for \(flight.airline) Flight \(flight.number)")
+        Text("On-Time History for \(flight.airline) Flight \(flight.number)").padding()
       List(flight.history, id:\.day) { h in
         HStack{
           Text("\(h.day) day ago - \(h.flightDelayDescription)")

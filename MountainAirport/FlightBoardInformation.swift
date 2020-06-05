@@ -28,10 +28,17 @@
 
 import SwiftUI
 
+struct CheckInInfo : Identifiable {
+    let id = UUID()
+    let airline: String
+    let flight: String
+}
+
 struct FlightBoardInformation: View {
     var flight: FlightInformation
     @Binding var showModal: Bool
     @State private var rebookAlert: Bool = false
+    @State private var checkInFlight: CheckInInfo?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -54,6 +61,31 @@ struct FlightBoardInformation: View {
                     Alert(title: Text("Contact Your Airline"),
                           message: Text("We cannot rebook this flight. Please contact the airline to reschedule this flight."))
                 })
+            }
+            if flight.direction == .departure &&
+               (flight.status == .ontime || flight.status == .delayed) {
+              Button("Check In for Flight", action: {
+                self.checkInFlight =
+                  CheckInInfo(airline: self.flight.airline, flight: self.flight.number)
+              })
+                .actionSheet(item: $checkInFlight) { flight in
+                  // 4
+                  ActionSheet(title: Text("Check In"),
+                    message: Text("Check in for \(flight.airline) Flight \(flight.flight)"),
+                    // 5
+                    buttons: [
+                      // 6
+                      .cancel(Text("Not Now")),
+                      // 7
+                      .destructive(Text("Reschedule"), action: {
+                        print("Reschedule flight.")
+                      }),
+                      // 8
+                      .default(Text("Check In"), action: {
+                        print("Check-in for \(flight.airline) \(flight.flight).")
+                      })
+                    ])
+              }
             }
             Spacer()
         }.font(.headline).padding(10)

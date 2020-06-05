@@ -31,6 +31,7 @@ import SwiftUI
 struct FlightBoardInformation: View {
     var flight: FlightInformation
     @Binding var showModal: Bool
+    @State private var rebookAlert: Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -45,6 +46,15 @@ struct FlightBoardInformation: View {
             Text("\(flight.direction == .arrival ? "From: " : "To: ") \(flight.otherAirport)")
             Text(flight.flightStatus)
                 .foregroundColor(Color(flight.timelineColor))
+            if flight.status == .cancelled {
+                Button("Rebook Flight", action: {
+                    self.rebookAlert = true
+                })
+                .alert(isPresented: $rebookAlert, content: {
+                    Alert(title: Text("Contact Your Airline"),
+                          message: Text("We cannot rebook this flight. Please contact the airline to reschedule this flight."))
+                })
+            }
             Spacer()
         }.font(.headline).padding(10)
     }
@@ -52,6 +62,6 @@ struct FlightBoardInformation: View {
 
 struct FlightBoardInformation_Previews: PreviewProvider {
     static var previews: some View {
-        FlightBoardInformation(flight: FlightInformation.generateFlight(0), showModal: .constant(true))
+        FlightBoardInformation(flight: FlightInformation.generateFlight(1), showModal: .constant(true))
     }
 }
